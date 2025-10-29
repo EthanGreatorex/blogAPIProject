@@ -9,6 +9,7 @@ This is a full stack website that allows users to see other users posts and comm
 - Posts can be edited, deleted and set to private/public even after creation
 - Posts allow users to leave comments; authors of comments can edit and delete them.
 - Posts can be searched by post title, content or author
+- Dynamic content depending on if the user is logged in or signed out
 
 ### 💻 Tech stack 💻
 - React & bootstrap front-end
