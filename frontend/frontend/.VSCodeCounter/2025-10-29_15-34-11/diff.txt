@@ -1,0 +1,52 @@
+Date : 2025-10-29 15:34:11
+Directory : c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages
+Total : 14 files,  -4403 codes, -9 comments, -52 blanks, all -4464 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| XML                |          1 |         -1 |          0 |          0 |         -1 |
+| JSON with Comments |          1 |         -7 |          0 |         -1 |         -8 |
+| HTML               |          1 |        -13 |          0 |         -1 |        -14 |
+| JavaScript         |          1 |        -22 |          0 |         -2 |        -24 |
+| TypeScript JSX     |          2 |        -24 |         -3 |         -7 |        -34 |
+| TypeScript         |          2 |        -37 |         -1 |         -5 |        -43 |
+| Markdown           |          1 |        -60 |          0 |        -14 |        -74 |
+| PostCSS            |          1 |        -85 |         -1 |        -14 |       -100 |
+| JSON               |          4 |     -4,154 |         -4 |         -8 |     -4,166 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                     |         14 |     -4,403 |         -9 |        -52 |     -4,464 |
+| ..                                                                                    |         14 |     -4,403 |         -9 |        -52 |     -4,464 |
+| .. (Files)                                                                            |          9 |     -4,261 |         -5 |        -28 |     -4,294 |
+| ..\src                                                                                |          5 |       -142 |         -4 |        -24 |       -170 |
+| ..\src (Files)                                                                        |          3 |       -109 |         -4 |        -21 |       -134 |
+| ..\src\assets                                                                         |          1 |         -1 |          0 |          0 |         -1 |
+| ..\src\types                                                                          |          1 |        -32 |          0 |         -3 |        -35 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                              | language           | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\README.md            | Markdown           |        -60 |          0 |        -14 |        -74 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\eslint.config.js     | JavaScript         |        -22 |          0 |         -2 |        -24 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\index.html           | HTML               |        -13 |          0 |         -1 |        -14 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\package-lock.json    | JSON               |     -4,073 |          0 |         -1 |     -4,074 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\package.json         | JSON               |        -35 |          0 |         -1 |        -36 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\App.tsx          | TypeScript JSX     |        -15 |         -3 |         -5 |        -23 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\assets\react.svg | XML                |         -1 |          0 |          0 |         -1 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\main.tsx         | TypeScript JSX     |         -9 |          0 |         -2 |        -11 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\styles.css       | PostCSS            |        -85 |         -1 |        -14 |       -100 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\types\types.ts   | TypeScript         |        -32 |          0 |         -3 |        -35 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.app.json    | JSON               |        -24 |         -2 |         -3 |        -29 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.json        | JSON with Comments |         -7 |          0 |         -1 |         -8 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.node.json   | JSON               |        -22 |         -2 |         -3 |        -27 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\vite.config.ts       | TypeScript         |         -5 |         -1 |         -2 |         -8 |
+| Total                                                                                 |                    |     -4,403 |         -9 |        -52 |     -4,464 |
++---------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

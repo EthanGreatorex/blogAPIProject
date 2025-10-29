@@ -1,0 +1,16 @@
+"filename", "language", "JSON with Comments", "TypeScript", "JSON", "Markdown", "TypeScript JSX", "HTML", "PostCSS", "JavaScript", "XML", "comment", "blank", "total"
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\README.md", "Markdown", 0, 0, 0, -60, 0, 0, 0, 0, 0, 0, -14, -74
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\eslint.config.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, -22, 0, 0, -2, -24
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\index.html", "HTML", 0, 0, 0, 0, 0, -13, 0, 0, 0, 0, -1, -14
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\package-lock.json", "JSON", 0, 0, -4073, 0, 0, 0, 0, 0, 0, 0, -1, -4074
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\package.json", "JSON", 0, 0, -35, 0, 0, 0, 0, 0, 0, 0, -1, -36
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\App.tsx", "TypeScript JSX", 0, 0, 0, 0, -15, 0, 0, 0, 0, -3, -5, -23
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, -2, -11
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\styles.css", "PostCSS", 0, 0, 0, 0, 0, 0, -85, 0, 0, -1, -14, -100
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\src\types\types.ts", "TypeScript", 0, -32, 0, 0, 0, 0, 0, 0, 0, 0, -3, -35
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.app.json", "JSON", 0, 0, -24, 0, 0, 0, 0, 0, 0, -2, -3, -29
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.json", "JSON with Comments", -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -8
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\tsconfig.node.json", "JSON", 0, 0, -22, 0, 0, 0, 0, 0, 0, -2, -3, -27
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\vite.config.ts", "TypeScript", 0, -5, 0, 0, 0, 0, 0, 0, 0, -1, -2, -8
+"Total", "-", -7, -37, -4154, -60, -24, -13, -85, -22, -1, -9, -52, -4464

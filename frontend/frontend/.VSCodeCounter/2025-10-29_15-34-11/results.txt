@@ -1,0 +1,35 @@
+Date : 2025-10-29 15:34:11
+Directory : c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages
+Total : 7 files,  775 codes, 15 comments, 60 blanks, all 850 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |          3 |        773 |         15 |         58 |        846 |
+| TypeScript     |          2 |          2 |          0 |          0 |          2 |
+| PostCSS        |          2 |          0 |          0 |          2 |          2 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |          7 |        775 |         15 |         60 |        850 |
+| Home                                                                                      |          3 |        120 |          5 |         12 |        137 |
+| Posts                                                                                     |          4 |        655 |         10 |         48 |        713 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                  | language       | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Home.css      | PostCSS        |          0 |          0 |          1 |          1 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Home.tsx      | TypeScript JSX |        119 |          5 |         11 |        135 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Index.ts      | TypeScript     |          1 |          0 |          0 |          1 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Index.ts     | TypeScript     |          1 |          0 |          0 |          1 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\PostList.tsx | TypeScript JSX |        403 |          3 |         24 |        430 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Posts.css    | PostCSS        |          0 |          0 |          1 |          1 |
+| c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Posts.tsx    | TypeScript JSX |        251 |          7 |         23 |        281 |
+| Total                                                                                     |                |        775 |         15 |         60 |        850 |
++-------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

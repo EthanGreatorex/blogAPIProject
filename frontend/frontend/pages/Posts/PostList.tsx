@@ -21,8 +21,9 @@ export default function PostList({ data }: Props) {
   const [selected, setSelected] = useState("public");
   const [showDelete, setShowDelete] = useState(false);
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
-  const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
+  const [commentToEdit, setCommentToEdit] = useState<number | null>(null);
   const [currentUserId, setCurrentUserId] = useState<number>();
+  const [showEditComment, setShowEditComment] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -36,9 +37,7 @@ export default function PostList({ data }: Props) {
     }
   }, []);
 
-  useEffect(() => {
-
-  })
+  useEffect(() => {});
 
   // fetches the comments data for the post the user clicked on
   useEffect(() => {
@@ -88,11 +87,11 @@ export default function PostList({ data }: Props) {
   };
 
   const handleCommentDelete = async () => {
-    if (!commentToDelete) return;
+    if (!commentToEdit) return;
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `http://localhost:4000/posts/comments/${commentToDelete}`,
+        `http://localhost:4000/posts/comments/${commentToEdit}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -171,6 +170,31 @@ export default function PostList({ data }: Props) {
     } catch (error) {
       console.error("Add comment error:", error);
       alert("An error occurred whilst adding your comment");
+    }
+  };
+
+  // submit a request to edit a comment
+  const handleEditComment = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `http://localhost:4000/posts/comments/${commentToEdit}`,
+        {
+          content: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Comment edited!");
+      setShowEditComment(false);
+      setShowComments(false);
+      setComment("");
+    } catch (error) {
+      console.error("Edit comment error:", error);
+      alert("An error occurred whilst editing your comment");
     }
   };
 
@@ -333,16 +357,28 @@ export default function PostList({ data }: Props) {
                 {new Date(comment.createdAt).toLocaleDateString()}
               </p>
               {currentUserId === comment.userId ? (
-                <Button
-                  className="btn btn-accent"
-                  style={{ fontSize: "12px" }}
-                  onClick={() => {
-                    setCommentToDelete(comment.id);
-                    handleCommentDelete();
-                  }}
-                >
-                  Delete
-                </Button>
+                <>
+                  <Button
+                    className="btn btn-accent me-2"
+                    style={{ fontSize: "12px" }}
+                    onClick={() => {
+                      setCommentToEdit(comment.id);
+                      handleCommentDelete();
+                    }}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    className="btn btn-accent"
+                    style={{ fontSize: "12px" }}
+                    onClick={() => {
+                      setCommentToEdit(comment.id);
+                      setShowEditComment(true);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </>
               ) : (
                 ""
               )}
@@ -355,6 +391,40 @@ export default function PostList({ data }: Props) {
           </Button>
           <Button className="btn-accent" onClick={handleAddComment}>
             Add Comment
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showEditComment} onHide={() => setShowEditComment(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Edit comment</Form.Label>
+              <Form.Control
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            className="btn-outline-accent"
+            onClick={() => setShowEditComment(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            className="btn-accent"
+            onClick={handleEditComment}
+          >
+            Apply changes
           </Button>
         </Modal.Footer>
       </Modal>

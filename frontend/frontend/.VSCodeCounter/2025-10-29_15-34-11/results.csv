@@ -1,0 +1,9 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "PostCSS", "comment", "blank", "total"
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Home.css", "PostCSS", 0, 0, 0, 0, 1, 1
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Home.tsx", "TypeScript JSX", 0, 119, 0, 5, 11, 135
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Home\Index.ts", "TypeScript", 1, 0, 0, 0, 0, 1
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Index.ts", "TypeScript", 1, 0, 0, 0, 0, 1
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\PostList.tsx", "TypeScript JSX", 0, 403, 0, 3, 24, 430
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Posts.css", "PostCSS", 0, 0, 0, 0, 1, 1
+"c:\Users\EthanGreatorex\Desktop\blogAPIProject\frontend\frontend\pages\Posts\Posts.tsx", "TypeScript JSX", 0, 251, 0, 7, 23, 281
+"Total", "-", 2, 773, 0, 15, 60, 850
