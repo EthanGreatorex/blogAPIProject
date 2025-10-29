@@ -9,17 +9,68 @@ const router = express.Router();
 // ----POSTS----
 
 // list all published posts
+router.get("/", async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      include: { author: { select: { username: true } } },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.json(posts);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+});
+
+// get a filtered list of posts
+router.get("/filtered", async (req, res) => {
+  console.log("filtering endpoint reached");
+  const q = String(req.query.q || "");
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+        OR: [
+          { title: { contains: q, mode: "insensitive" } },
+          { content: { contains: q, mode: "insensitive" } },
+          { author: { username: { contains: q, mode: "insensitive" } } },
+        ],
+      },
+      include: {
+        author: true,
+        comments: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching posts" });
+  }
+});
+
+// get all private and public posts for a specific user
 router.get(
-  "/",
+  "/user/:id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    const id = parseInt(req.params.id);
     try {
       const posts = await prisma.post.findMany({
-        where: { published: true },
-        include: { author: { select: { username: true } } },
+        where: {
+          authorId: id,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
       res.json(posts);
-    } catch (err) {
+    } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error fetching posts" });
     }
   }
@@ -84,6 +135,8 @@ router.put(
 
       const post = await prisma.post.findUnique({ where: { id: postId } });
 
+      console.log("hit edit post endpoint")
+
       if (!post || post.authorId !== user.id) {
         return res
           .status(403)
@@ -97,6 +150,7 @@ router.put(
 
       res.json(updatedPost);
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error updating post" });
     }
   }
@@ -122,7 +176,7 @@ router.delete(
       await prisma.post.delete({ where: { id: postId } });
       res.json({ message: "Post deleted successfully" });
     } catch (error) {
-      res.status(500).json({ messag: "Error deleting post" });
+      res.status(500).json({ message: "Error deleting post" });
     }
   }
 );
@@ -130,28 +184,35 @@ router.delete(
 // ----COMMENTS----
 
 // list comments for a post
-router.get("/:id/comments", async (req, res) => {
-  try {
-    const postId = parseInt(req.params.id);
-    const comments = await prisma.comment.findMany({
-      where: { postId },
-      include: {
-        user: { select: { username: true } },
-      },
-      orderBy: { createdAt: "asc" },
-    });
-    res.json(comments);
-  } catch (err) {
-    console.error("Error fetching comments:", err);
-    res.status(500).json({ message: "Failed to fetch comments" });
+router.get(
+  "/:id/comments",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const postId = parseInt(req.params.id);
+      const comments = await prisma.comment.findMany({
+        where: { postId },
+        include: {
+          user: { select: { username: true } },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+      res.json(comments);
+    } catch (err) {
+      console.error("Error fetching comments:", err);
+      res.status(500).json({ message: "Failed to fetch comments" });
+    }
   }
-});
+);
 
 // add a comment
 router.post(
   "/:id/comments",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("add comment reached");
     try {
       const postId = parseInt(req.params.id);
       const { content } = req.body;

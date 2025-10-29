@@ -14,7 +14,7 @@ const secret: string = process.env.JWT_SECRET || '';
 // create an account
 router.post("/signup",  async(req, res) => {
   try{
-    const {email, username, password} = req.body;
+    const {email, username, password, role} = req.body;
 
     console.log("Create account endpoint reached...")
 
@@ -33,7 +33,7 @@ router.post("/signup",  async(req, res) => {
             email,
             username,
             password: hashedPassword,
-            role: "user",
+            role,
         },
     });
 

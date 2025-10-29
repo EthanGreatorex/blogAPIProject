@@ -177,40 +177,58 @@ export default function Posts() {
 
   return (
     <>
-      <div className="container mt-4 rounded-3 p-4 app-header">
+      <div
+        className="container mt-4 rounded-3 p-4 text-white"
+        style={{ backgroundColor: "#212121ff" }}
+      >
         <h1 className="text-center">Welcome To Posts!</h1>
-        <h5 className="text-center muted">
+        <h5 className="text-center text-white-50">
           Browse through posts made by other users on the platform!
         </h5>
       </div>
 
       {localStorage.getItem("token") ? (
         <div className="container mt-3">
-          <Button className="btn-accent" onClick={logoutUser}>
+          <Button
+            className="bg-dark text-white-50 border-0"
+            onClick={logoutUser}
+          >
             Log out
           </Button>
         </div>
       ) : (
         <div className="container mt-3">
-          <Button className="btn-outline-accent" onClick={() => navigate("/") }>
+          <Button
+            className="bg-dark text-white-50 border-0"
+            onClick={() => navigate("/")}
+          >
             Back to Login/Signup
           </Button>
         </div>
       )}
 
       <div className="container mt-5">
-        <Button className="btn-outline-accent me-2" onClick={showAllPosts}>
+        <Button
+          className="bg-dark text-white-50 border-0 me-2"
+          onClick={showAllPosts}
+        >
           View all posts
         </Button>
         {currentUserId ? (
-          <Button className="btn-outline-accent me-2" onClick={showUserPosts}>
+          <Button
+            className="bg-dark text-white-50 border-0 me-2"
+            onClick={showUserPosts}
+          >
             View your posts
           </Button>
         ) : (
           ""
         )}
 
-        <Button className="btn-accent" onClick={authorisePostAction}>
+        <Button
+          className="bg-dark text-white-50 border-0"
+          onClick={authorisePostAction}
+        >
           Add Post
         </Button>
       </div>
@@ -219,7 +237,7 @@ export default function Posts() {
         <form onSubmit={handleSearch}>
           <input
             type="search"
-            className="search-input fs-5 w-100"
+            className="p-2 bg-dark border-0 rounded-3 fs-3 w-100 text-white"
             placeholder={searchPlaceholder}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -270,7 +288,7 @@ export default function Posts() {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
-          <Button className="btn-accent" onClick={handleAddPost}>
+          <Button variant="dark" onClick={handleAddPost}>
             Add Post
           </Button>
         </Modal.Footer>

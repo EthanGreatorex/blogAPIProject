@@ -16,7 +16,7 @@ const port = process.env.PORT || 4003;
 // tell the server we will expect json data
 app.use(express.json());
 
-app.use(cors({ origin: "http://localhost:5174", credentials: true }));
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use(passport.initialize());
 

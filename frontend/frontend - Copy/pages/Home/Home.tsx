@@ -13,7 +13,6 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [roleSelection, setRoleSelection] = useState("user");
 
   const navigate = useNavigate();
 
@@ -32,12 +31,12 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const endpoint = isLogin ? "/auth/login" : "/auth/signup";
+
     try {
       const response = await axios.post(`http://localhost:4000${endpoint}`, {
         email,
         password,
         ...(isLogin ? {} : { username }),
-        role: roleSelection,
       });
 
       const { token } = response.data;
@@ -52,19 +51,19 @@ export default function Home() {
 
   return (
     <>
-      <div className="container text-center app-header p-4 mt-4 rounded-2">
+      <div className="container text-center bg-dark p-4 mt-4 text-white rounded-2">
         <h1>Welcome to Blogger</h1>
         <button
-          className="btn btn-accent rounded-3 p-2"
+          className="bg-dark text-white-50 rounded-3 p-2 border-0"
           onClick={() => setShowModal(true)}
         >
-          Login / Sign Up
+          Login/Signup
         </button>
       </div>
 
-      <div className="container text-center p-4 mt-4 rounded-2">
+      <div className="container text-center p-4 mt-4 text-white rounded-2">
         <button
-          className="btn btn-outline-accent rounded-3 p-2"
+          className="bg-dark text-white-50 rounded-3 p-2 border-0"
           onClick={handleNavigate}
         >
           View posts
@@ -87,11 +86,6 @@ export default function Home() {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                   />
-                  <label>Role</label>
-                  <select className="form-control" value={roleSelection} onChange={(e) => setRoleSelection(e.target.value)}>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
                 </div>
               )}
               <div className="mb-3 text-black">
@@ -114,7 +108,7 @@ export default function Home() {
                   required
                 />
               </div>
-              <button type="submit" className="btn-accent">
+              <button type="submit" className="btn btn-dark">
                 {isLogin ? "Login" : "Sign Up"}
               </button>
             </form>

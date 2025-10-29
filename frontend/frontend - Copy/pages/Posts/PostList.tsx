@@ -19,6 +19,7 @@ export default function PostList({ data }: Props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selected, setSelected] = useState("public");
+  const [published, setPublished] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
   const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
@@ -35,10 +36,6 @@ export default function PostList({ data }: Props) {
       setCurrentUserId(decoded.id);
     }
   }, []);
-
-  useEffect(() => {
-
-  })
 
   // fetches the comments data for the post the user clicked on
   useEffect(() => {
@@ -91,16 +88,12 @@ export default function PostList({ data }: Props) {
     if (!commentToDelete) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:4000/posts/comments/${commentToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`http://localhost:4000/posts/comments/${commentToDelete}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       alert("Comment deleted!");
-      setShowComments(false);
     } catch (error) {
       console.error("Delete error:", error);
       alert("Not authorised");
@@ -110,7 +103,9 @@ export default function PostList({ data }: Props) {
   const handleEdit = async () => {
     if (!selectedPost) return;
     try {
-      const published = selected === "private" ? false : true;
+      if (selected === "private") {
+        setPublished(false);
+      }
       const token = localStorage.getItem("token");
       await axios.put(
         `http://localhost:4000/posts/${selectedPost.id}`,
@@ -167,7 +162,6 @@ export default function PostList({ data }: Props) {
 
       alert("Comment added!");
       setShowComments(false);
-      setComment("");
     } catch (error) {
       console.error("Add comment error:", error);
       alert("An error occurred whilst adding your comment");
@@ -176,56 +170,57 @@ export default function PostList({ data }: Props) {
 
   return (
     <>
-      <div className="container w-100">
+      <div className="container w-100 text-white">
         <div className="row mt-5">
           {data.map((post) => (
-            <div key={post.id} className="col-lg-6">
-              <div className="post-card text-center">
-                <img
-                  className="post-image"
-                  src="https://placehold.co/600x400"
-                  alt="600x400 placeholder image"
-                />
-                <h4 className="mb-4 mt-3">{post.title}</h4>
-                <p className="fw-light fs-5">{post.content}</p>
-                <p className="post-meta fs-6 fw-light">
-                  Posted by{" "}
-                  {currentUserId === post.authorId
-                    ? "You"
-                    : post.author.username}
-                  <br />
-                  Posted {new Date(post.createdAt).toLocaleDateString()}
-                  <br /> Last edited on{" "}
-                  {new Date(post.updatedAt).toLocaleDateString()}
-                </p>
-
-                {currentUserId === post.authorId && (
-                  <>
-                    <button
-                      className="btn-accent me-2"
-                      onClick={() => openEditModal(post)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn-accent me-2"
-                      onClick={() => {
-                        setPostToDelete(post);
-                        setShowDelete(true);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-
-                <button
-                  className="btn-accent"
-                  onClick={() => openCommentModal(post)}
-                >
-                  View comments
-                </button>
-              </div>
+            <div
+              key={post.id}
+              className="col-lg-12 mb-4 rounded-3 p-4 m-1"
+              style={{
+                backgroundColor: "#212121ff",
+                boxShadow: "10px 10px 0px #171717ff",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src="https://placehold.co/600x400"
+                alt="600x400 placeholder image"
+              />
+              <h4 className="text-center mb-4 mt-3">{post.title}</h4>
+              <p className="fw-light fs-5">{post.content}</p>
+              <p className="text-white-50 fs-6 fw-light">
+                Posted by{" "}
+                {currentUserId === post.authorId ? "You" : post.author.username}{" "}
+                <br></br>
+                Posted {new Date(post.createdAt).toLocaleDateString()}
+                <br></br> {""}Last edited on{" "}
+                {new Date(post.updatedAt).toLocaleDateString()}
+              </p>
+              {currentUserId === post.authorId && (
+                <>
+                  <button
+                    className="btn text-white-50 "
+                    onClick={() => openEditModal(post)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn text-white-50"
+                    onClick={() => {
+                      setPostToDelete(post);
+                      setShowDelete(true);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+              <button
+                className="btn text-white-50"
+                onClick={() => openCommentModal(post)}
+              >
+                View comments
+              </button>
             </div>
           ))}
         </div>
@@ -261,20 +256,16 @@ export default function PostList({ data }: Props) {
                 onChange={(e) => setSelected(e.target.value)}
               >
                 <option value="">Public</option>
-                <option value="private">Private</option>
+                <option value="tech">Private</option>
               </Form.Select>
             </FormGroup>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            className="btn-outline-accent"
-            onClick={() => setShow(false)}
-          >
+          <Button variant="secondary" onClick={() => setShow(false)}>
             Cancel
           </Button>
-          <Button className="btn-accent" onClick={handleEdit}>
+          <Button variant="dark" onClick={handleEdit}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -289,18 +280,10 @@ export default function PostList({ data }: Props) {
           <strong>{postToDelete?.title}</strong>"?
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            className="btn-outline-accent"
-            onClick={() => setShowDelete(false)}
-          >
+          <Button variant="secondary" onClick={() => setShowDelete(false)}>
             Cancel
           </Button>
-          <Button
-            variant="danger"
-            className="btn-accent"
-            onClick={handleDelete}
-          >
+          <Button variant="danger" onClick={handleDelete}>
             Delete
           </Button>
         </Modal.Footer>
@@ -326,34 +309,40 @@ export default function PostList({ data }: Props) {
             </Form.Group>
           </Form>
           {currentComments?.map((comment: Comment, idx: number) => (
-            <div className="p-2 rounded-3 mb-2 border" key={comment.id ?? idx}>
-              <p>{comment.content}</p>
-              <p className="muted" style={{ fontSize: "0.9rem" }}>
-                commented by {comment.user.username} on{" "}
-                {new Date(comment.createdAt).toLocaleDateString()}
-              </p>
-              {currentUserId === comment.userId ? (
-                <Button
-                  className="btn btn-accent"
-                  style={{ fontSize: "12px" }}
-                  onClick={() => {
-                    setCommentToDelete(comment.id);
-                    handleCommentDelete();
-                  }}
-                >
-                  Delete
-                </Button>
-              ) : (
-                ""
-              )}
-            </div>
+            <>
+              <div
+                className="p-2 rounded-3 text-black mb-2"
+                style={{ border: "2px solid black" }}
+                key={comment.id ?? idx}
+              >
+                <p>{comment.content}</p>
+                <p style={{ fontSize: "0.9rem" }}>
+                  commented by {comment.user.username} on{" "}
+                  {new Date(comment.createdAt).toLocaleDateString()}{" "}
+                </p>
+                {currentUserId === comment.userId ? (
+                  <Button
+                    className="bg-danger border-0"
+                    style={{ fontSize: "12px" }}
+                    onClick={() => {
+                      setCommentToDelete(comment.id);
+                      handleCommentDelete();
+                    }}
+                  >
+                    Delete
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </div>
+            </>
           ))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowComments(false)}>
             Close
           </Button>
-          <Button className="btn-accent" onClick={handleAddComment}>
+          <Button variant="dark" onClick={handleAddComment}>
             Add Comment
           </Button>
         </Modal.Footer>
