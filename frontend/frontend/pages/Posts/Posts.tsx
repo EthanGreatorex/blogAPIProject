@@ -14,6 +14,7 @@ export default function Posts() {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [currentImage, setCurrentImage] = useState<File | null>(null);
   const [visibility, setVisibility] = useState("public");
   const [search, setSearch] = useState("");
   const [searchPlaceholder, setSearchPlaceholder] = useState(
@@ -68,8 +69,25 @@ export default function Posts() {
     }
   };
 
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "blogupload");
+
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/danu6km5p/image/upload",
+      formData
+    );
+    console.log(response.data.secure_url);
+    return response.data.secure_url;
+  };
+
   const handleAddPost = async () => {
     try {
+      let imageUrl = "";
+      if (currentImage) {
+        imageUrl = await uploadImage(currentImage);
+      }
       const postTitle = title.trim() === "" ? "Untitled post" : title;
       const token = localStorage.getItem("token");
       await axios.post(
@@ -77,6 +95,7 @@ export default function Posts() {
         {
           title: postTitle,
           content,
+          imageUrl,
           published: visibility === "public",
         },
         {
@@ -90,6 +109,7 @@ export default function Posts() {
       setTitle("");
       setContent("");
       setVisibility("public");
+      setCurrentImage(null);
       fetchData();
     } catch (error) {
       console.error("Add post error:", error);
@@ -150,7 +170,7 @@ export default function Posts() {
       setPostData(response.data);
     } catch (err) {
       console.error("Search error:", err);
-      alert("Search failed");
+      alert("Search failed, are you sure you have any posts?");
     } finally {
       setLoading(false);
     }
@@ -192,7 +212,7 @@ export default function Posts() {
         </div>
       ) : (
         <div className="container mt-3">
-          <Button className="btn-outline-accent" onClick={() => navigate("/") }>
+          <Button className="btn-outline-accent" onClick={() => navigate("/")}>
             Back to Login/Signup
           </Button>
         </div>
@@ -246,14 +266,20 @@ export default function Posts() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Content</Form.Label>
+              <Form.Control as="textarea" rows={4} value={content} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Image</Form.Label>
               <Form.Control
-                as="textarea"
-                rows={4}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                required
+                type="file"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const file = e.target.files && e.target.files[0];
+                  if (file) setCurrentImage(file);
+                }}
+                accept="image/*"
               />
             </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>Visibility</Form.Label>
               <Form.Select

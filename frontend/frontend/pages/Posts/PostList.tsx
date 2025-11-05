@@ -18,6 +18,8 @@ export default function PostList({ data }: Props) {
   const [comment, setComment] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [currentImage, setCurrentImage] = useState<File | null>(null);
+  const [deleteImage, setDeleteImage] = useState<boolean>(false);
   const [selected, setSelected] = useState("public");
   const [showDelete, setShowDelete] = useState(false);
   const [postToDelete, setPostToDelete] = useState<Post | null>(null);
@@ -86,6 +88,19 @@ export default function PostList({ data }: Props) {
     setShowComments(true);
   };
 
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "blogupload");
+
+    const response = await axios.post(
+      "https://api.cloudinary.com/v1_1/danu6km5p/image/upload",
+      formData
+    );
+    console.log(response.data.secure_url);
+    return response.data.secure_url;
+  };
+
   const handleCommentDelete = async () => {
     if (!commentToEdit) return;
     try {
@@ -100,6 +115,7 @@ export default function PostList({ data }: Props) {
       );
       alert("Comment deleted!");
       setShowComments(false);
+      window.location.reload();
     } catch (error) {
       console.error("Delete error:", error);
       alert("Not authorised");
@@ -110,12 +126,23 @@ export default function PostList({ data }: Props) {
     if (!selectedPost) return;
     try {
       const published = selected === "private" ? false : true;
+
+      let imageUrl = "";
+      if (!deleteImage) {
+        if (currentImage) {
+          imageUrl = await uploadImage(currentImage);
+        } else {
+          imageUrl = selectedPost.imageUrl;
+        }
+      }
+
       const token = localStorage.getItem("token");
       await axios.put(
         `http://localhost:4000/posts/${selectedPost.id}`,
         {
           title,
           content,
+          imageUrl,
           published,
         },
         {
@@ -126,6 +153,8 @@ export default function PostList({ data }: Props) {
       );
       alert("Post updated!");
       setShow(false);
+      setCurrentImage(null);
+      window.location.reload();
     } catch (error) {
       console.error("Update error:", error);
       alert("Not Authorised!");
@@ -207,7 +236,11 @@ export default function PostList({ data }: Props) {
               <div className="post-card text-center">
                 <img
                   className="post-image"
-                  src="https://placehold.co/600x400"
+                  src={
+                    post.imageUrl
+                      ? post.imageUrl
+                      : "https://placehold.co/600x400"
+                  }
                   alt="600x400 placeholder image"
                 />
                 <h4 className="mb-4 mt-3">{post.title}</h4>
@@ -277,6 +310,23 @@ export default function PostList({ data }: Props) {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const file = e.target.files && e.target.files[0];
+                  if (file) setCurrentImage(file);
+                }}
+                accept="image/*"
+              />
+              <Button
+                className="mt-2 btn-accent"
+                onClick={() => setDeleteImage(true)}
+              >
+                Remove Image
+              </Button>
             </Form.Group>
             <FormGroup>
               <Form.Label>Visibility</Form.Label>
@@ -354,7 +404,8 @@ export default function PostList({ data }: Props) {
               <p>{comment.content}</p>
               <p className="muted" style={{ fontSize: "0.9rem" }}>
                 commented by {comment.user.username} on{" "}
-                {new Date(comment.createdAt).toLocaleDateString()}
+                {new Date(comment.createdAt).toLocaleDateString()}, last edited{" "}
+                {new Date(comment.updatedAt).toLocaleDateString()}
               </p>
               {currentUserId === comment.userId ? (
                 <>

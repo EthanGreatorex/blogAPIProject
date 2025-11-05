@@ -104,13 +104,14 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      const { title, content, published } = req.body;
+      const { title, content, published, imageUrl } = req.body;
       const user = req.user as { id: number };
 
       const newPost = await prisma.post.create({
         data: {
           title,
           content,
+          imageUrl,
           authorId: user.id,
           published: published,
         },
@@ -130,7 +131,7 @@ router.put(
   async (req, res) => {
     try {
       const postId = parseInt(req.params.id);
-      const { title, content, published } = req.body;
+      const { title, content, published, imageUrl } = req.body;
       const user = req.user as { id: number };
 
       const post = await prisma.post.findUnique({ where: { id: postId } });
@@ -145,7 +146,7 @@ router.put(
 
       const updatedPost = await prisma.post.update({
         where: { id: postId },
-        data: { title, content, published },
+        data: { title, content, published, imageUrl },
       });
 
       res.json(updatedPost);
