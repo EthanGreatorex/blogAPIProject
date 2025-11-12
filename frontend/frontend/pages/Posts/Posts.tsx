@@ -21,16 +21,20 @@ export default function Posts() {
     "Search for posts or users..."
   );
   const [currentUserId, setCurrentUserId] = useState<number>();
+  const [currentUsername, setCurrentUsername] = useState<string>("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       interface DecodedToken {
         id: number;
+        username: string;
       }
       const decoded = jwtDecode<DecodedToken>(token);
 
       setCurrentUserId(decoded.id);
+      setCurrentUsername(decoded.username)
+      console.log("Decoded token:", decoded);
     }
   }, []);
 
@@ -198,7 +202,9 @@ export default function Posts() {
   return (
     <>
       <div className="container mt-4 rounded-3 p-4 app-header">
-        <h1 className="text-center">Welcome To Posts!</h1>
+        {
+          currentUsername ? <h1 className="text-center">Welcome back, {currentUsername}!</h1> : <h1 className="text-center">Welcome To Posts!</h1>
+        }
         <h5 className="text-center muted">
           Browse through posts made by other users on the platform!
         </h5>

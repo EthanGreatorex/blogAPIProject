@@ -1,7 +1,6 @@
 // ----IMPORTS----
 import express, { Express, Request, Response } from "express";
 import "dotenv/config";
-import { prisma } from "./prismaClient";
 import blogPostRouter from "./routes/blogPostRoutes";
 import authRouter from "./routes/authRoutes";
 import passport from "./passportConfig.ts";

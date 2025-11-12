@@ -233,16 +233,19 @@ export default function PostList({ data }: Props) {
         <div className="row mt-5">
           {data.map((post) => (
             <div key={post.id} className="col-lg-6">
-              <div className="post-card text-center">
-                <img
-                  className="post-image"
-                  src={
-                    post.imageUrl
-                      ? post.imageUrl
-                      : "https://placehold.co/600x400"
-                  }
-                  alt="600x400 placeholder image"
-                />
+              <div className="post-card ">
+                <div className="post-image-container">
+                  <img
+                    className="post-image"
+                    src={
+                      post.imageUrl
+                        ? post.imageUrl
+                        : "https://placehold.co/600x400"
+                    }
+                    alt="600x400 placeholder image"
+                  />
+                </div>
+
                 <h4 className="mb-4 mt-3">{post.title}</h4>
                 <p className="fw-light fs-5">{post.content}</p>
                 <p className="post-meta fs-6 fw-light">
